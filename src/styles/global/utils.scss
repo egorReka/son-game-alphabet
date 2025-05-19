@@ -1,0 +1,50 @@
+@use "../bootstrap.scss" as *;
+
+.wrapper {
+  display: grid;
+  min-block-size: 100%;
+  grid-template-rows: auto 1fr;
+}
+
+.rouble {
+  /* stylelint-disable */
+  font-weight: 400 !important;
+  /* stylelint-enable */
+  font-family: $ff-rouble;
+  /* stylelint-disable */
+  text-transform: lowercase !important;
+  /* stylelint-enable */
+}
+
+.visually-hidden {
+  position: fixed;
+  transform: scale(0);
+}
+
+.scroll-lock-ios {
+  position: fixed;
+
+  overflow: hidden;
+}
+
+.scroll-lock {
+  overflow: hidden;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.no-transition {
+  /* stylelint-disable-next-line */
+  transition: none !important;
+}
+
+.js-focus-visible :focus:not(.focus-visible) {
+  outline: none;
+}
