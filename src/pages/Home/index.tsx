@@ -1,34 +1,24 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Button, Card } from '../../components/UI';
 import './Home.scss';
+import { StartMenu } from '../../components/StartMenu';
 
-const HomePage: React.FC = () => {
+const Home: React.FC = () => {
   const navigate = useNavigate();
 
-  const handleStartGame = () => {
-    navigate('/game');
+  const handleStart = (letter?: string) => {
+    // Если буква не выбрана, начинаем с 'а'
+    const startLetter = letter || 'а';
+    navigate(`/game/${startLetter}`);
   };
 
   return (
-    <div className="home-page">
-      <div className="home-page__content">
-        <Card className="home-page__card">
-          <h1 className="home-page__title">Изучаем алфавит</h1>
-          <p className="home-page__description">
-            Привет! Давай вместе с котиком Мурзиком изучать буквы и слова!
-          </p>
-          <Button 
-            variant="primary"
-            size="large"
-            onClick={handleStartGame}
-          >
-            Начать игру
-          </Button>
-        </Card>
+    <div className='home-page'>
+      <div className='home-page__content'>
+        <StartMenu onStart={handleStart} />
       </div>
     </div>
   );
 };
 
-export default HomePage;
+export default Home;

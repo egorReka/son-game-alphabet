@@ -32,6 +32,10 @@ class GameService {
   getSceneById(sceneId: string): SceneData | null {
     return this.scenes.find((scene) => scene.id === sceneId) || null;
   }
+
+  getSceneByLetter(letter: string): SceneData | null {
+    return this.scenes.find((scene) => scene.letter.toLowerCase() === letter.toLowerCase()) || null;
+  }
 }
 
 export const gameService = new GameService();

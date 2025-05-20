@@ -1,6 +1,6 @@
 {
   "id": 2,
-  "letter": "Б",
+  "letter": "б",
   "word": "Банан",
   "background": "/assets/scenes/jungle.png",
   "characterMood": "thinking",
@@ -16,8 +16,5 @@
     "options": ["Б", "В", "Н", "Д"],
     "correctAnswer": "Б"
   },
-  "successMessage": [
-    "Правильно! Банан начинается с буквы Б!",
-    "Ты настоящий знаток букв!"
-  ]
+  "successMessage": ["Правильно! Банан начинается с буквы Б!", "Ты настоящий знаток букв!"]
 }

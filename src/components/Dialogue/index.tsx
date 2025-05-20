@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './Dialogue.scss';
 import { Button } from '../UI';
-import { useSound } from '../../hooks/useSound';
 import { speechService } from '../../services/SpeechService';
 
 interface DialogueProps {
