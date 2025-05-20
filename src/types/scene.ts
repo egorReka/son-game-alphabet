@@ -1,17 +1,33 @@
-export interface GameData {
-  type: 'guess-letter';
-  question: string;
-  options: string[];
-  correctAnswer: string;
-}
+import type { GameType } from '../components/Games/Game';
 
 export interface SceneData {
-  id: number;
+  id: string;
   letter: string;
   word: string;
   background: string;
-  characterMood: 'happy' | 'sad' | 'thinking';
+  characterMood: 'neutral' | 'happy' | 'sad' | 'thinking';
+  character: {
+    mood: 'neutral' | 'happy' | 'sad' | 'thinking';
+    position: 'left' | 'center' | 'right';
+  };
   dialogue: string[];
-  game: GameData;
+  game?: {
+    type: GameType;
+    question: string;
+    options: string[];
+    correctAnswer: string | string[];
+  };
   successMessage: string[];
+}
+
+export interface SceneState {
+  currentSceneId: string;
+  completedScenes: string[];
+  progress: {
+    [sceneId: string]: {
+      dialogueIndex: number;
+      isGameCompleted: boolean;
+      isComplete: boolean;
+    };
+  };
 }

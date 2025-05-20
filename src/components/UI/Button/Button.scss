@@ -1,0 +1,58 @@
+.ui-button {
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease;
+
+  &--primary {
+    background-color: #4CAF50;
+    color: white;
+
+    &:hover {
+      background-color: #45a049;
+    }
+  }
+
+  &--secondary {
+    background-color: #ff9800;
+    color: white;
+
+    &:hover {
+      background-color: #f57c00;
+    }
+  }
+
+  &--success {
+    background-color: #2196F3;
+    color: white;
+
+    &:hover {
+      background-color: #1976D2;
+    }
+  }
+
+  &--small {
+    padding: 8px 16px;
+    font-size: 14px;
+  }
+
+  &--medium {
+    padding: 12px 24px;
+    font-size: 16px;
+  }
+
+  &--large {
+    padding: 16px 32px;
+    font-size: 18px;
+  }
+
+  &:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+    
+    &:hover {
+      background-color: #cccccc;
+    }
+  }
+}
