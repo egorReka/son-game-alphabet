@@ -14,10 +14,13 @@
     "stylelint:fix": "stylelint \"src/**/*.scss\" --fix"
   },
   "dependencies": {
+    "@types/howler": "^2.2.12",
+    "howler": "^2.2.4",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-router-dom": "^6.30.0",
-    "react-transition-group": "^4.4.5"
+    "react-transition-group": "^4.4.5",
+    "use-sound": "^5.0.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.25.0",
