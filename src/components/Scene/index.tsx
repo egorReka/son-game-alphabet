@@ -29,6 +29,13 @@ const Scene: React.FC<SceneProps> = ({ data, onComplete }) => {
     }, 500);
   };
 
+  const handleGameAnswer = (answer: string | string[]) => {
+    // Обновляем настроение персонажа при правильном ответе
+    if (data.game && answer === data.game.correctAnswer) {
+      setIsCharacterSpeaking(true);
+    }
+  };
+
   if (!data || !data.characterMood) {
     return <div>Загрузка сцены...</div>;
   }
@@ -50,7 +57,7 @@ const Scene: React.FC<SceneProps> = ({ data, onComplete }) => {
           {!isDialogueComplete ? (
             <Dialogue messages={data.dialogue} onComplete={handleDialogueComplete} />
           ) : data.game ? (
-            <Game {...data.game} onComplete={handleGameComplete} onAnswer={() => {}} />
+            <Game {...data.game} onComplete={handleGameComplete} onAnswer={handleGameAnswer} successMessage={data.successMessage} />
           ) : null}
         </div>
       </div>

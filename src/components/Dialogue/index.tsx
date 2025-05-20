@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import './Dialogue.scss';
-import { Button } from '../UI';
 import { speechService } from '../../services/SpeechService';
 
 interface DialogueProps {
@@ -16,28 +15,32 @@ const Dialogue: React.FC<DialogueProps> = ({
   speed = 50,
   className = '',
 }) => {
-  const [currentMessageIndex, setCurrentMessageIndex] = useState(0);
   const [displayedText, setDisplayedText] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const [isCompleted, setIsCompleted] = useState(false);
 
-  const currentMessage = messages[currentMessageIndex];
+  // Объединяем все сообщения в один текст с переносами строк
+  const fullText = messages.join('\n\n');
 
   useEffect(() => {
-    if (!currentMessage) return;
-
     let index = 0;
     setIsTyping(true);
 
-    // Начинаем воспроизведение всего текста сразу
-    speechService.speak(currentMessage);
+    // Создаем экземпляр utterance для отслеживания завершения речи
+    const utterance = new SpeechSynthesisUtterance(fullText);
+
+    utterance.onend = () => {
+      // Когда речь закончилась, вызываем onComplete
+      setIsCompleted(true);
+      onComplete?.();
+    };
+
+    // Начинаем воспроизведение всего текста
+    speechService.speak(fullText, utterance);
 
     const interval = setInterval(() => {
-      if (index < currentMessage.length) {
-        const nextChar = currentMessage[index];
-        if (nextChar !== undefined) {
-          setDisplayedText((prev) => prev + nextChar);
-        }
+      if (index < fullText.length) {
+        setDisplayedText((prev) => prev + fullText[index]);
         index++;
       } else {
         clearInterval(interval);
@@ -49,35 +52,14 @@ const Dialogue: React.FC<DialogueProps> = ({
       clearInterval(interval);
       speechService.cancel();
     };
-  }, [currentMessage, speed]);
-
-  const handleNext = () => {
-    if (isTyping) {
-      setDisplayedText(currentMessage);
-      setIsTyping(false);
-      return;
-    }
-
-    if (currentMessageIndex < messages.length - 1) {
-      setCurrentMessageIndex((prev) => prev + 1);
-      setDisplayedText('');
-    } else {
-      setIsCompleted(true);
-      onComplete?.();
-    }
-  };
+  }, [fullText, speed, onComplete]);
 
   return (
     <div className={`dialogue ${className}`}>
       <div className='dialogue__box'>
-        <div className='dialogue__text'>{displayedText}</div>
-        {!isCompleted && (
-          <div className='dialogue__controls'>
-            <Button onClick={handleNext} variant='primary'>
-              {isTyping ? 'Пропустить' : 'Далее'}
-            </Button>
-          </div>
-        )}
+        <div className='dialogue__text' style={{ whiteSpace: 'pre-wrap' }}>
+          {displayedText}
+        </div>
       </div>
     </div>
   );
